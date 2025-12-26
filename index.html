@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dream1Job Admin Panel</title>
+    <link rel="stylesheet" href="Css/styles.css">
+</head>
+<body>
+
+<!-- Sidebar -->
+<aside class="sidebar">
+    <div class="brand">
+        <img src="logo/app_logo_main.png" alt="Dream1Job Logo">
+    <span>Dream1Job</span>
+    </div>
+
+    <ul class="menu">
+        <li class="active" onclick="showSection('company', this)">Company</li>
+        <li onclick="showSection('jobs', this)">Jobs</li>
+        <li onclick="showSection('jobDetails', this)">Job Details</li>
+        <li onclick="showSection('news', this)">News</li>
+    </ul>
+</aside>
+
+<!-- Main -->
+<main class="main-content">
+    <header class="top-bar">
+        <h1>Admin Dashboard</h1>
+        <span class="admin-tag">Admin Panel</span>
+    </header>
+
+    <!-- Company -->
+    <section id="company" class="section">
+        <h2>Company Management</h2>
+
+        <div class="card">
+            <div class="grid">
+                <input type="number" id="companyId" placeholder="Company ID">
+                <input type="text" id="companyName" placeholder="Company Name">
+                <input type="text" id="companyLocation" placeholder="Location">
+                <input type="text" id="companyWebsite" placeholder="Website">
+            </div>
+
+            <div class="actions">
+                <button class="primary" onclick="createCompany()">Create</button>
+                <button class="secondary" onclick="updateCompany()">Update</button>
+                <button class="info" onclick="getCompany()">Get</button>
+                <button class="danger" onclick="deleteCompany()">Delete</button>
+            </div>
+
+            <pre id="companyResult"></pre>
+        </div>
+    </section>
+
+    <!-- Jobs -->
+    <section id="jobs" class="section hidden">
+        <h2>Job Management</h2>
+
+        <div class="card">
+            <div class="grid">
+                <input type="number" id="jobId" placeholder="Job ID">
+                <input type="text" id="jobTitle" placeholder="Job Title">
+                <input type="text" id="jobLocation" placeholder="Location">
+                <input type="text" id="jobType" placeholder="Job Type">
+                <input type="text" id="experienceLevel" placeholder="Experience Level">
+                <input type="text" id="publishedDate" placeholder="Published Date">
+                <input type="text" id="minSalary" placeholder="Min Salary">
+                <input type="text" id="maxSalary" placeholder="Max Salary">
+                <input type="number" id="companyIdForJob" placeholder="Company ID">
+            </div>
+
+            <div class="actions">
+                <button class="primary" onclick="createJob()">Create</button>
+                <button class="secondary" onclick="updateJob()">Update</button>
+                <button class="info" onclick="getJobById()">Get</button>
+                <button class="danger" onclick="deleteJob()">Delete</button>
+            </div>
+
+            <div class="search-bar">
+                <input type="text" id="searchValue" placeholder="Search">
+                <select id="searchType">
+                    <option value="title">Title</option>
+                    <option value="location">Location</option>
+                    <option value="jobType">Job Type</option>
+                    <option value="companyName">Company</option>
+                </select>
+                <button class="info" onclick="searchJobs()">Search</button>
+            </div>
+
+            <pre id="jobResult"></pre>
+        </div>
+    </section>
+
+    <!-- Job Details -->
+    <section id="jobDetails" class="section hidden">
+        <h2>Job Details</h2>
+
+        <div class="card">
+            <input type="number" id="detailsJobId" placeholder="Job ID">
+
+            <textarea id="jobHighlights" placeholder="Job Highlights"></textarea>
+            <textarea id="jobDescription" placeholder="Job Description"></textarea>
+            <textarea id="aboutCompany" placeholder="About Company"></textarea>
+
+            <div class="actions">
+                <button class="primary" onclick="createJobDetails()">Save</button>
+                <button class="secondary" onclick="updateJobDetails()">Update</button>
+                <button class="info" onclick="getJobDetails()">Get</button>
+                <button class="danger" onclick="deleteJobDetails()">Delete</button>
+            </div>
+
+            <pre id="detailsResult"></pre>
+        </div>
+    </section>
+
+    <!-- News -->
+    <section id="news" class="section hidden">
+        <h2>Job News</h2>
+
+        <div class="card">
+            <input type="number" id="newsId" placeholder="News ID">
+            <input type="text" id="headline" placeholder="Headline">
+            <textarea id="brief" placeholder="Brief"></textarea>
+            <input type="text" id="imageUrl" placeholder="Image URL">
+            <input type="text" id="source" placeholder="Source">
+            <input type="text" id="newsUrl" placeholder="News URL">
+            <input type="date" id="publishedDate">
+
+            <div class="actions">
+                <button class="primary" onclick="createNews()">Add</button>
+                <button class="secondary" onclick="updateNews()">Update</button>
+                <button class="info" onclick="getAllNews()">Fetch</button>
+                <button class="danger" onclick="deleteNews()">Delete</button>
+            </div>
+
+            <pre id="newsResult"></pre>
+        </div>
+    </section>
+
+</main>
+
+<script>
+function showSection(id, el) {
+    document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
+    document.getElementById(id).classList.remove('hidden');
+
+    document.querySelectorAll('.menu li').forEach(li => li.classList.remove('active'));
+    el.classList.add('active');
+}
+</script>
+
+</body>
+</html>
