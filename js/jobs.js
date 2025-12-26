@@ -1,30 +1,33 @@
 // CREATE JOB
 function createJob() {
-
-    const body = {
-        jobId: document.getElementById("jobId").value,
-        titleString: document.getElementById("jobTitle").value,
-        locationString: document.getElementById("jobLocation").value,
-        jobTypeString: document.getElementById("jobType").value,
-        experienceLevelString: document.getElementById("experienceLevel").value,
-        publishedDateString: document.getElementById("publishedDate").value,
-        minSalaryString: document.getElementById("minSalary").value,
-        maxSalaryString: document.getElementById("maxSalary").value,
-        companyId: document.getElementById("companyIdForJob").value
+    const job = {
+        jobId: Number(document.getElementById('jobId').value),
+        titleString: document.getElementById('titleString').value,
+        locationString: document.getElementById('locationString').value,
+        jobTypeString: document.getElementById('jobTypeString').value,
+        publishedDateString: document.getElementById('publishedDateString').value,
+        descriptionString: document.getElementById('descriptionString').value,
+        experienceLevelString: document.getElementById('experienceLevelString').value,
+        applicationUrlString: document.getElementById('applicationUrlString').value,
+        minSalaryString: document.getElementById('minSalaryString').value,
+        maxSalaryString: document.getElementById('maxSalaryString').value,
+        company: {
+            companyId: Number(document.getElementById('companyIdForJob').value)
+        }
     };
 
-    fetch(`${API.jobs}/create/Job`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body)
+    fetch(`${BASE_URL}/jobs`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(job)
     })
     .then(res => res.json())
     .then(data => {
-        document.getElementById("jobResult").textContent =
-            JSON.stringify(data, null, 2);
+        document.getElementById('jobResult').innerHTML = JSON.stringify(data, null, 2);
     })
-    .catch(err => alert(err));
+    .catch(err => console.error(err));
 }
+
 
 // UPDATE JOB
 function updateJob() {

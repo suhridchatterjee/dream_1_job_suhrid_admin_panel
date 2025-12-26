@@ -1,79 +1,63 @@
-// CREATE COMPANY
 function createCompany() {
-
-    const body = {
-        companyName: document.getElementById("companyName").value,
-        companyLocation: document.getElementById("companyLocation").value,
-        companyWebsite: document.getElementById("companyWebsite").value
+    const company = {
+        companyId: Number(document.getElementById('companyId').value),
+        nameString: document.getElementById('nameString').value,
+        logoStringTK: document.getElementById('logoStringTK').value,
+        websiteStringTk: document.getElementById('websiteStringTk').value
     };
 
-    fetch(`${API.company}/insert/companyDetails`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body)
+    fetch(`${BASE_URL}/companies`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(company)
     })
     .then(res => res.json())
     .then(data => {
-        document.getElementById("companyResult").textContent =
-            JSON.stringify(data, null, 2);
+        document.getElementById('companyResult').innerHTML = JSON.stringify(data, null, 2);
     })
-    .catch(err => alert(err));
+    .catch(err => console.error(err));
 }
 
-// UPDATE COMPANY
 function updateCompany() {
-
-    const companyId = document.getElementById("companyId").value;
-
-    const body = {
-        companyName: document.getElementById("companyName").value,
-        companyLocation: document.getElementById("companyLocation").value,
-        companyWebsite: document.getElementById("companyWebsite").value
+    const companyId = Number(document.getElementById('companyId').value);
+    const company = {
+        nameString: document.getElementById('nameString').value,
+        logoStringTK: document.getElementById('logoStringTK').value,
+        websiteStringTk: document.getElementById('websiteStringTk').value
     };
 
-    fetch(`${API.company}/update/companyDetails/${companyId}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body)
+    fetch(`${BASE_URL}/companies/${companyId}`, {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(company)
     })
     .then(res => res.json())
     .then(data => {
-        document.getElementById("companyResult").textContent =
-            JSON.stringify(data, null, 2);
+        document.getElementById('companyResult').innerHTML = JSON.stringify(data, null, 2);
     })
-    .catch(err => alert(err));
+    .catch(err => console.error(err));
 }
 
-// GET COMPANY BY ID
 function getCompany() {
-
-    const companyId = document.getElementById("companyId").value;
-
-    fetch(`${API.company}/getCompanyDetails/${companyId}`)
-        .then(res => res.json())
-        .then(data => {
-            document.getElementById("companyName").value = data.companyName || "";
-            document.getElementById("companyLocation").value = data.companyLocation || "";
-            document.getElementById("companyWebsite").value = data.companyWebsite || "";
-
-            document.getElementById("companyResult").textContent =
-                JSON.stringify(data, null, 2);
-        })
-        .catch(err => alert("Company not found"));
-}
-
-// DELETE COMPANY
-function deleteCompany() {
-
-    const companyId = document.getElementById("companyId").value;
-
-    fetch(`${API.company}/deleteCompanyById/${companyId}`, {
-        method: "DELETE"
-    })
+    const companyId = Number(document.getElementById('companyId').value);
+    fetch(`${BASE_URL}/companies/${companyId}`)
     .then(res => res.json())
     .then(data => {
-        document.getElementById("companyResult").textContent =
-            "Deleted: " + data;
+        document.getElementById('companyResult').innerHTML = JSON.stringify(data, null, 2);
+        // Optional: populate inputs with fetched data
+        document.getElementById('nameString').value = data.nameString || '';
+        document.getElementById('logoStringTK').value = data.logoStringTK || '';
+        document.getElementById('websiteStringTk').value = data.websiteStringTk || '';
     })
-    .catch(err => alert(err));
+    .catch(err => console.error(err));
+}
+
+function deleteCompany() {
+    const companyId = Number(document.getElementById('companyId').value);
+    fetch(`${BASE_URL}/companies/${companyId}`, { method: 'DELETE' })
+    .then(res => res.json())
+    .then(data => {
+        document.getElementById('companyResult').innerHTML = JSON.stringify(data, null, 2);
+    })
+    .catch(err => console.error(err));
 }

@@ -30,67 +30,54 @@
     </header>
 
     <!-- Company -->
-    <section id="company" class="section">
+    <div id="company" class="section">
         <h2>Company Management</h2>
-
-        <div class="card">
-            <div class="grid">
-                <input type="number" id="companyId" placeholder="Company ID">
-                <input type="text" id="companyName" placeholder="Company Name">
-                <input type="text" id="companyLocation" placeholder="Location">
-                <input type="text" id="companyWebsite" placeholder="Website">
-            </div>
-
-            <div class="actions">
-                <button class="primary" onclick="createCompany()">Create</button>
-                <button class="secondary" onclick="updateCompany()">Update</button>
-                <button class="info" onclick="getCompany()">Get</button>
-                <button class="danger" onclick="deleteCompany()">Delete</button>
-            </div>
-
-            <pre id="companyResult"></pre>
+    
+        <input type="number" id="companyId" placeholder="Company ID">
+        <input type="text" id="nameString" placeholder="Company Name">
+        <input type="text" id="logoStringTK" placeholder="Logo URL">
+        <input type="text" id="websiteStringTk" placeholder="Website URL">
+    
+        <br><br>
+    
+        <div class="actions">
+            <button onclick="createCompany()">Create</button>
+            <button onclick="updateCompany()">Update</button>
+            <button onclick="getCompany()">Get</button>
+            <button onclick="deleteCompany()">Delete</button>
         </div>
-    </section>
+    
+        <div id="companyResult"></div>
+    </div>
+    
 
     <!-- Jobs -->
-    <section id="jobs" class="section hidden">
+    <div id="jobs" class="section">
         <h2>Job Management</h2>
-
-        <div class="card">
-            <div class="grid">
-                <input type="number" id="jobId" placeholder="Job ID">
-                <input type="text" id="jobTitle" placeholder="Job Title">
-                <input type="text" id="jobLocation" placeholder="Location">
-                <input type="text" id="jobType" placeholder="Job Type">
-                <input type="text" id="experienceLevel" placeholder="Experience Level">
-                <input type="text" id="publishedDate" placeholder="Published Date">
-                <input type="text" id="minSalary" placeholder="Min Salary">
-                <input type="text" id="maxSalary" placeholder="Max Salary">
-                <input type="number" id="companyIdForJob" placeholder="Company ID">
-            </div>
-
-            <div class="actions">
-                <button class="primary" onclick="createJob()">Create</button>
-                <button class="secondary" onclick="updateJob()">Update</button>
-                <button class="info" onclick="getJobById()">Get</button>
-                <button class="danger" onclick="deleteJob()">Delete</button>
-            </div>
-
-            <div class="search-bar">
-                <input type="text" id="searchValue" placeholder="Search">
-                <select id="searchType">
-                    <option value="title">Title</option>
-                    <option value="location">Location</option>
-                    <option value="jobType">Job Type</option>
-                    <option value="companyName">Company</option>
-                </select>
-                <button class="info" onclick="searchJobs()">Search</button>
-            </div>
-
-            <pre id="jobResult"></pre>
+    
+        <input type="number" id="jobId" placeholder="Job ID">
+        <input type="text" id="titleString" placeholder="Job Title">
+        <input type="text" id="locationString" placeholder="Location">
+        <input type="text" id="jobTypeString" placeholder="Job Type">
+        <input type="text" id="experienceLevelString" placeholder="Experience Level">
+        <input type="text" id="publishedDateString" placeholder="Published Date">
+        <input type="text" id="minSalaryString" placeholder="Min Salary">
+        <input type="text" id="maxSalaryString" placeholder="Max Salary">
+        <input type="text" id="applicationUrlString" placeholder="Application URL">
+        <textarea id="descriptionString" rows="4" placeholder="Job Description"></textarea>
+        <input type="number" id="companyIdForJob" placeholder="Company ID">
+    
+        <br><br>
+        <div class="actions">
+            <button onclick="createJob()">Create Job</button>
+            <button onclick="updateJob()">Update Job</button>
+            <button onclick="getJobById()">Get Job</button>
+            <button onclick="deleteJob()">Delete Job</button>
         </div>
-    </section>
-
+    
+        <div id="jobResult"></div>
+    </div>
+    
     <!-- Job Details -->
     <section id="jobDetails" class="section hidden">
         <h2>Job Details</h2>
