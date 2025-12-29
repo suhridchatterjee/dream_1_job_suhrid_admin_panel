@@ -1,4 +1,5 @@
 const BASE_URL = "http://localhost:8080";
+const API_KEY = "suhrid_chatterjee_3939"; // same as application.properties
 
 const API = {
     company: `${BASE_URL}/api/Dream1JobTK`,

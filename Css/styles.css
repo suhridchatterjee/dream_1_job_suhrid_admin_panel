@@ -78,6 +78,8 @@ body {
 
 /* Card */
 .card {
+    margin-bottom: 20px; /* Adjust as needed */
+    padding: 15px;       /* optional: inside spacing */
     background: #fff;
     padding: 20px;
     border-radius: 10px;
