@@ -108,7 +108,6 @@ function deleteCompany() {
 
 // Handles JSON + plain text + API errors
 function handleResponse(response) {
-
     if (!response.ok) {
         return response.text().then(text => {
             throw new Error(text || `HTTP Error ${response.status}`);
