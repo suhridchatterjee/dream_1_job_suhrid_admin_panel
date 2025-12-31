@@ -93,43 +93,142 @@
     
 
     <!-- Jobs -->
-    <section id="jobs" class="section hidden">
-        <h2>Job Management</h2>
+   <!-- ================= JOB MANAGEMENT ================= -->
+<section id="jobs" class="section hidden">
+    <h2>Job Management</h2>
 
-        <div class="card">
-            <div class="grid">
-                <input type="number" id="jobId" placeholder="Job ID">
-                <input type="text" id="jobTitle" placeholder="Job Title">
-                <input type="text" id="jobLocation" placeholder="Location">
-                <input type="text" id="jobType" placeholder="Job Type">
-                <input type="text" id="experienceLevel" placeholder="Experience Level">
-                <input type="text" id="publishedDate" placeholder="Published Date">
-                <input type="text" id="minSalary" placeholder="Min Salary">
-                <input type="text" id="maxSalary" placeholder="Max Salary">
-                <input type="number" id="companyIdForJob" placeholder="Company ID">
-            </div>
-
-            <div class="actions">
-                <button class="primary" onclick="createJob()">Create</button>
-                <button class="secondary" onclick="updateJob()">Update</button>
-                <button class="info" onclick="getJobById()">Get</button>
-                <button class="danger" onclick="deleteJob()">Delete</button>
-            </div>
-
-            <div class="search-bar">
-                <input type="text" id="searchValue" placeholder="Search">
-                <select id="searchType">
-                    <option value="title">Title</option>
-                    <option value="location">Location</option>
-                    <option value="jobType">Job Type</option>
-                    <option value="companyName">Company</option>
-                </select>
-                <button class="info" onclick="searchJobs()">Search</button>
-            </div>
-
-            <pre id="jobResult"></pre>
+    <!-- CREATE JOB -->
+    <div class="card">
+        <h3>Create Job</h3>
+        <div class="grid">
+            <input type="number" id="jobIdCreate" placeholder="Job ID">
+            <input type="number" id="companyIdCreateJob" placeholder="Company ID">
+            <input type="text" id="jobTitle" placeholder="Job Title">
+            <input type="text" id="jobLocation" placeholder="Location">
+            <input type="text" id="jobType" placeholder="Job Type">
+            <input type="text" id="experienceLevel" placeholder="Experience Level">
+            <input type="text" id="publishedDate" placeholder="Published Date">
+            <input type="text" id="minSalary" placeholder="Min Salary">
+            <input type="text" id="maxSalary" placeholder="Max Salary">
+            <textarea id="jobDescription" placeholder="Job Description"></textarea>
+            <input type="text" id="applicationUrl" placeholder="Application URL">
         </div>
-    </section>
+        <div class="actions">
+            <button class="primary" onclick="createJob()">Create Job</button>
+        </div>
+    </div>
+
+    <!-- UPDATE JOB -->
+    <div class="card">
+        <h3>Update Job</h3>
+    
+        <div class="grid">
+            <input type="number" id="jobIdUpdate" placeholder="Job ID">
+            <input type="number" id="companyIdUpdateJob" placeholder="Company ID">
+            <input type="text" id="jobTitle" placeholder="Job Title">
+            <input type="text" id="jobLocation" placeholder="Location">
+            <input type="text" id="jobType" placeholder="Job Type">
+            <input type="text" id="experienceLevel" placeholder="Experience Level">
+            <input type="text" id="publishedDate" placeholder="Published Date">
+            <input type="text" id="minSalary" placeholder="Min Salary">
+            <input type="text" id="maxSalary" placeholder="Max Salary">
+            <textarea id="jobDescription" placeholder="Job Description"></textarea>
+            <input type="text" id="applicationUrl" placeholder="Application URL">
+        </div>
+    
+        <div class="actions">
+            <button class="primary" onclick="createJob()">Create Job</button>
+            <button class="secondary" onclick="updateJob()">Update Job</button>
+        </div>
+    </div>
+    
+
+    <!-- GET JOB BY ID -->
+    <div class="card">
+        <h3>Get Job By ID</h3>
+        <input type="number" id="jobIdGet" placeholder="Job ID">
+        <div class="actions">
+            <button class="info" onclick="getJobById()">Get Job</button>
+        </div>
+    </div>
+
+    <!-- DELETE JOB -->
+    <div class="card">
+        <h3>Delete Job By ID</h3>
+        <input type="number" id="jobIdDelete" placeholder="Job ID">
+        <div class="actions">
+            <button class="danger" onclick="deleteJob()">Delete Job</button>
+        </div>
+    </div>
+
+    <!-- GET ALL JOBS -->
+    <div class="card">
+        <h3>Get All Jobs</h3>
+        <div class="actions">
+            <button class="info" onclick="getAllJobs()">Fetch All Jobs</button>
+        </div>
+    </div>
+
+    <!-- SEARCH BY TITLE -->
+    <div class="card">
+        <h3>Search Job By Title</h3>
+        <input type="text" id="searchTitle" placeholder="Job Title">
+        <div class="actions">
+            <button class="info" onclick="searchByTitle()">Search</button>
+        </div>
+    </div>
+
+    <!-- SEARCH BY LOCATION -->
+    <div class="card">
+        <h3>Search Job By Location</h3>
+        <input type="text" id="searchLocation" placeholder="Location">
+        <div class="actions">
+            <button class="info" onclick="searchByLocation()">Search</button>
+        </div>
+    </div>
+
+    <!-- SEARCH BY JOB TYPE -->
+    <div class="card">
+        <h3>Search Job By Job Type</h3>
+        <input type="text" id="searchJobType" placeholder="Job Type">
+        <div class="actions">
+            <button class="info" onclick="searchByJobType()">Search</button>
+        </div>
+    </div>
+
+    <!-- SEARCH BY PUBLISHED DATE -->
+    <div class="card">
+        <h3>Search Job By Published Date</h3>
+        <input type="text" id="searchPublishedDate" placeholder="Published Date">
+        <div class="actions">
+            <button class="info" onclick="searchByPublishedDate()">Search</button>
+        </div>
+    </div>
+
+    <!-- SEARCH BY EXPERIENCE -->
+    <div class="card">
+        <h3>Search Job By Experience Level</h3>
+        <input type="text" id="searchExperience" placeholder="Experience Level">
+        <div class="actions">
+            <button class="info" onclick="searchByExperience()">Search</button>
+        </div>
+    </div>
+
+    <!-- SEARCH BY COMPANY NAME -->
+    <div class="card">
+        <h3>Search Job By Company Name</h3>
+        <input type="text" id="searchCompanyName" placeholder="Company Name">
+        <div class="actions">
+            <button class="info" onclick="searchByCompanyName()">Search</button>
+        </div>
+    </div>
+
+    <!-- RESULT -->
+    <pre id="jobResult"></pre>
+
+</section>
+
+
 
     <!-- Job Details -->
     <section id="jobDetails" class="section hidden">

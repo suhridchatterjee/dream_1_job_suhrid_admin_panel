@@ -1,112 +1,204 @@
+// -------------------- JOB API METHODS --------------------
+
 // CREATE JOB
 function createJob() {
+    const companyId = Number(document.getElementById("companyIdCreateJob").value);
+    const jobId = Number(document.getElementById("jobIdCreate").value);
+
+    if (!jobId || !companyId) {
+        showJobResult("❌ Job ID and Company ID are required");
+        return;
+    }
+
     const job = {
-        jobId: Number(document.getElementById('jobId').value),
-        titleString: document.getElementById('titleString').value,
-        locationString: document.getElementById('locationString').value,
-        jobTypeString: document.getElementById('jobTypeString').value,
-        publishedDateString: document.getElementById('publishedDateString').value,
-        descriptionString: document.getElementById('descriptionString').value,
-        experienceLevelString: document.getElementById('experienceLevelString').value,
-        applicationUrlString: document.getElementById('applicationUrlString').value,
-        minSalaryString: document.getElementById('minSalaryString').value,
-        maxSalaryString: document.getElementById('maxSalaryString').value,
-        company: {
-            companyId: Number(document.getElementById('companyIdForJob').value)
-        }
+        jobId: jobId,
+        titleString: document.getElementById("jobTitle").value || null,
+        locationString: document.getElementById("jobLocation").value || null,
+        jobTypeString: document.getElementById("jobType").value || null,
+        publishedDateString: document.getElementById("publishedDate").value || null,
+        descriptionString: document.getElementById("jobDescription").value || null,
+        experienceLevelString: document.getElementById("experienceLevel").value || null,
+        applicationUrlString: document.getElementById("applicationUrl").value || null,
+        minSalaryString: document.getElementById("minSalary").value || null,
+        maxSalaryString: document.getElementById("maxSalary").value || null,
+        companyDto: { companyId }
     };
 
-    fetch(`${BASE_URL}/jobs`, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
+    fetch(`${API.jobs}/create/Job`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "suhrid-api-key-dream": API_KEY
+        },
         body: JSON.stringify(job)
     })
-    .then(res => res.json())
-    .then(data => {
-        document.getElementById('jobResult').innerHTML = JSON.stringify(data, null, 2);
-    })
-    .catch(err => console.error(err));
+    .then(handleResponse)
+    .then(showJobResult)
+    .catch(err => showJobResult(err.message));
 }
+
 
 
 // UPDATE JOB
 function updateJob() {
+    const jobId = Number(document.getElementById("jobIdUpdate").value);
+    const companyId = Number(document.getElementById("companyIdUpdateJob").value);
 
-    const jobId = document.getElementById("jobId").value;
+    if (!jobId) {
+        showJobResult("❌ Job ID is required");
+        return;
+    }
 
-    const body = {
-        titleString: document.getElementById("jobTitle").value,
-        locationString: document.getElementById("jobLocation").value,
-        jobTypeString: document.getElementById("jobType").value,
-        experienceLevelString: document.getElementById("experienceLevel").value,
-        publishedDateString: document.getElementById("publishedDate").value,
-        minSalaryString: document.getElementById("minSalary").value,
-        maxSalaryString: document.getElementById("maxSalary").value,
-        companyId: document.getElementById("companyIdForJob").value
+    const job = {
+        titleString: document.getElementById("jobTitle").value || null,
+        locationString: document.getElementById("jobLocation").value || null,
+        jobTypeString: document.getElementById("jobType").value || null,
+        publishedDateString: document.getElementById("publishedDate").value || null,
+        descriptionString: document.getElementById("jobDescription").value || null,
+        experienceLevelString: document.getElementById("experienceLevel").value || null,
+        applicationUrlString: document.getElementById("applicationUrl").value || null,
+        minSalaryString: document.getElementById("minSalary").value || null,
+        maxSalaryString: document.getElementById("maxSalary").value || null
     };
+
+    if (companyId) {
+        job.companyDto = { companyId };
+    }
 
     fetch(`${API.jobs}/updateJob/${jobId}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body)
+        headers: {
+            "Content-Type": "application/json",
+            "suhrid-api-key-dream": API_KEY
+        },
+        body: JSON.stringify(job)
     })
-    .then(res => res.json())
-    .then(data => {
-        document.getElementById("jobResult").textContent =
-            JSON.stringify(data, null, 2);
-    })
-    .catch(err => alert(err));
+    .then(handleResponse)
+    .then(showJobResult)
+    .catch(err => showJobResult(err.message));
 }
+
+
 
 // GET JOB BY ID
 function getJobById() {
+    const jobId = Number(document.getElementById("jobIdGet").value);
 
-    const jobId = document.getElementById("jobId").value;
+    if (!jobId) {
+        showJobResult("❌ Job ID required");
+        return;
+    }
 
-    fetch(`${API.jobs}/getJob/${jobId}`)
-        .then(res => res.json())
-        .then(data => {
-            document.getElementById("jobTitle").value = data.titleString || "";
-            document.getElementById("jobLocation").value = data.locationString || "";
-            document.getElementById("jobType").value = data.jobTypeString || "";
-            document.getElementById("experienceLevel").value = data.experienceLevelString || "";
-            document.getElementById("publishedDate").value = data.publishedDateString || "";
-            document.getElementById("minSalary").value = data.minSalaryString || "";
-            document.getElementById("maxSalary").value = data.maxSalaryString || "";
+    fetch(`${API.jobs}/getJob/${jobId}`, {
+        headers: { "suhrid-api-key-dream": API_KEY }
+    })
+    .then(handleResponse)
+    .then(data => {
+        document.getElementById("jobId").value = data?.jobId || "";
+        document.getElementById("jobTitle").value = data?.titleString || "";
+        document.getElementById("jobLocation").value = data?.locationString || "";
+        document.getElementById("jobType").value = data?.jobTypeString || "";
+        document.getElementById("publishedDate").value = data?.publishedDateString || "";
+        document.getElementById("jobDescription").value = data?.descriptionString || "";
+        document.getElementById("experienceLevel").value = data?.experienceLevelString || "";
+        document.getElementById("applicationUrl").value = data?.applicationUrlString || "";
+        document.getElementById("minSalary").value = data?.minSalaryString || "";
+        document.getElementById("maxSalary").value = data?.maxSalaryString || "";
+        document.getElementById("companyIdForJob").value =
+            data?.company?.companyId || data?.companyDto?.companyId || "";
 
-            document.getElementById("jobResult").textContent =
-                JSON.stringify(data, null, 2);
-        })
-        .catch(() => alert("Job not found"));
+        showJobResult(data);
+    })
+    .catch(() => showJobResult("❌ Job not found"));
 }
+
 
 // DELETE JOB
 function deleteJob() {
+    const jobId = Number(document.getElementById("jobIdDelete").value);
 
-    const jobId = document.getElementById("jobId").value;
+    if (!jobId) {
+        showJobResult("❌ Job ID required");
+        return;
+    }
 
     fetch(`${API.jobs}/dropDelete/${jobId}`, {
-        method: "DELETE"
+        method: "DELETE",
+        headers: { "suhrid-api-key-dream": API_KEY }
     })
-    .then(res => res.json())
-    .then(data => {
-        document.getElementById("jobResult").textContent =
-            "Deleted: " + data;
-    })
-    .catch(err => alert(err));
+    .then(handleResponse)
+    .then(showJobResult)
+    .catch(err => showJobResult(err.message));
 }
 
-// SEARCH JOBS
-function searchJobs() {
 
-    const value = document.getElementById("searchValue").value;
-    const type = document.getElementById("searchType").value;
+// GET ALL JOBS
+function getAllJobs() {
+    fetch(`${API.jobs}/getAll/Job`, {
+        headers: { "suhrid-api-key-dream": API_KEY }
+    })
+    .then(handleResponse)
+    .then(showJobResult)
+    .catch(err => showJobResult(err.message));
+}
 
-    fetch(`${API.jobs}/getJob/${type}/${value}`)
-        .then(res => res.json())
-        .then(data => {
-            document.getElementById("jobResult").textContent =
-                JSON.stringify(data, null, 2);
-        })
-        .catch(err => alert(err));
+
+// SEARCH FUNCTIONS (MATCH YOUR UI BUTTONS)
+function searchByTitle() {
+    search(`/getJob/title/`, "searchTitle");
+}
+
+function searchByLocation() {
+    search(`/getJob/location/`, "searchLocation");
+}
+
+function searchByJobType() {
+    search(`/getJob/jobType/`, "searchJobType");
+}
+
+function searchByPublishedDate() {
+    search(`/getJob/publishedDate/`, "searchPublishedDate");
+}
+
+function searchByExperience() {
+    search(`/getJob/experienceLevel/`, "searchExperience");
+}
+
+function searchByCompanyName() {
+    search(`/getJob/companyName/`, "searchCompanyName");
+}
+
+
+function search(endpoint, inputId) {
+    const value = document.getElementById(inputId).value;
+
+    if (!value) {
+        showJobResult("❌ Search value required");
+        return;
+    }
+
+    fetch(`${API.jobs}${endpoint}${encodeURIComponent(value)}`, {
+        headers: { "suhrid-api-key-dream": API_KEY }
+    })
+    .then(handleResponse)
+    .then(showJobResult)
+    .catch(err => showJobResult(err.message));
+}
+
+
+
+// -------------------- OUTPUT PANEL --------------------
+
+function showJobResult(data) {
+    const panel = document.getElementById("jobResult");
+
+    if (!data) {
+        panel.textContent = "No response";
+        return;
+    }
+
+    panel.textContent =
+        typeof data === "string"
+            ? data
+            : JSON.stringify(data, null, 2);
 }
